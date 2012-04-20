@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gin-1.5-post-gwt-2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtp-all-0.6.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/aopalliance.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-assistedinject-3.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-servlet-3.0.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/javax.inject.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/guava-11.0.2.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/gwt-visualization.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/icu4j-49.1.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/javacup.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/olap4j-1.0.0.445.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/olap4j-xmla-1.0.0.445.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/visualization-datasource-1.1.1.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/SmartBIPrototype/war/WEB-INF/lib/gxt-2.2.5-gwt22.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>
