@@ -1,2 +1,2 @@
-SmartBIPrototype
-================
+Smart BI Prototype
+==================

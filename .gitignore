@@ -3,3 +3,7 @@
 # Package Files #
 *.war
 *.ear
+
+/gwt-unitCache
+/war/smartbiprototype
+/war/WEB-INF/deploy
