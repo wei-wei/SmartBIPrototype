@@ -9,6 +9,8 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.google.gwt.inject.client.AsyncProvider;
 import com.dblab.client.mvp.SignInPresenter;
 import com.dblab.client.mvp.MainPresenter;
+import com.dblab.client.mvp.HomePresenter;
+import com.dblab.client.mvp.DBBuilderPresenter;
 
 @GinModules({ DispatchAsyncModule.class, ClientModule.class })
 public interface ClientGinjector extends Ginjector {
@@ -20,4 +22,8 @@ public interface ClientGinjector extends Ginjector {
 	AsyncProvider<SignInPresenter> getSignInPresenter();
 
 	AsyncProvider<MainPresenter> getMainPresenter();
+
+	AsyncProvider<HomePresenter> getHomePresenter();
+
+	AsyncProvider<DBBuilderPresenter> getDBBuilderPresenter();
 }

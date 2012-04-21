@@ -1,2 +1,167 @@
 /* Add css rules here for your application. */
 
+.main-logo {
+    background: url("../images/icc-logo-simple.png") no-repeat scroll 0 0 transparent;
+    height: 32px;
+    left: 10px;
+    position: absolute;
+    width: 90px;
+}
+
+.main-menu {
+	float: left;
+	text-shadow: 1px 1px white;
+	margin: 2px 0 0;
+}
+
+#app-title {
+  color: white;
+  font-family: tahoma, arial, sans-serif;
+  font-size: 16px;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: normal;
+  padding: 6px 0 8px 6px;
+}
+
+#app-header {
+  background: #1E4176 repeat-x scroll 0pt;
+  border: 0pt none;
+  padding-left: 3px;
+}
+
+.header-content {
+    padding: 6px 12px 0 0;
+    position: relative;
+}
+
+.header-content ul {
+}
+.header-content ul li {
+    float: right;
+    padding: 4px 6px 2px;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+}
+ul, li {
+    list-style: none outside none;
+}
+
+.clear {
+    clear: both;
+}
+.clear0 {
+    clear: both;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    padding: 0 !important;
+}
+.t-left {
+    text-align: left !important;
+}
+.hidden {
+    display: none;
+}
+.no-panels-msg {
+    font-size: 15px;
+    padding-left: 40%;
+    padding-top: 20%;
+}
+.ic-Label-centered {
+    font-size: 15px;
+    left: 50%;
+    margin-left: -125px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 250px;
+}
+.IE6Warn .ic-Label-centered {
+    margin-left: -250px;
+    margin-top: -200px;
+    text-align: left;
+    width: auto;
+}
+.ic-Label-centered-error {
+    color: red;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+}
+body {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #707070;
+    font-family: Arial,serif;
+    font-size: 12px;
+    font-weight: normal;
+    min-height: 100%;
+}
+.main-wrapper {
+}
+
+input, select, select option, textarea {
+    font: 12px Arial;
+}
+.ic-FieldSet-monitoring {
+    border-color: #CECECE;
+    margin: 4px 0;
+}
+.ic-header {
+}
+.ic-header a {
+    color: #B84E9B;
+    text-decoration: none;
+}
+.ic-header a.selected {
+    color: #4C4C4C;
+    text-decoration: none;
+}
+.ic-header a:hover {
+    color: #4C4C4C;
+}
+.main-logo {
+    background: url("../images/icc-logo-simple.png") no-repeat scroll 0 0 transparent;
+    height: 32px;
+    left: 10px;
+    position: absolute;
+    width: 90px;
+}
+.ic-header-content {
+    padding: 6px 12px 0 0;
+    position: relative;
+}
+.ic-header-content ul {
+}
+.ic-header-content ul li {
+    float: right;
+    padding: 4px 6px 2px;
+}
+.main-menu {
+    float: left;
+    margin: 2px 0 0;
+    text-shadow: 1px 1px #FFFFFF;
+}
+.serv-menu {
+    float: right;
+    margin: 2px 0 0;
+    text-shadow: 1px 1px #FFFFFF;
+}
+li.menu-divider {
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #DADADA;
+    height: 19px;
+    margin: 2px 0 0;
+    padding: 0 !important;
+    width: 0;
+}

@@ -12,6 +12,8 @@
 	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
+	<inherits name='com.google.gwt.visualization.Visualization'></inherits>
+
 	<!-- Other module inherits                                      -->
 	<inherits name='com.gwtplatform.mvp.Mvp'/>
 	<inherits name='com.gwtplatform.dispatch.Dispatch'/>

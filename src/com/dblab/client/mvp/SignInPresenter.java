@@ -41,7 +41,7 @@ public class SignInPresenter extends
 		listener =	new SelectionListener<ButtonEvent>() {
 						@Override
 						public void componentSelected(ButtonEvent ce) {
-							placeManager.revealPlace(new PlaceRequest(NameTokens.main));
+							placeManager.revealPlace(new PlaceRequest(NameTokens.home));
 						}
 					};
 	}
