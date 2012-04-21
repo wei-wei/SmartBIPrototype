@@ -1,14 +1,16 @@
 package com.dblab.client.mvp;
 
-import com.dblab.client.widget.HeaderPanel;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
-import com.extjs.gxt.ui.client.Style.Scroll;
 import com.extjs.gxt.ui.client.util.Margins;
-import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.extjs.gxt.ui.client.widget.HtmlContainer;
+import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.Viewport;
+import com.extjs.gxt.ui.client.widget.button.Button;
+import com.extjs.gxt.ui.client.widget.button.ToggleButton;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
-import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.extjs.gxt.ui.client.widget.toolbar.FillToolItem;
+import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
@@ -16,14 +18,16 @@ import com.gwtplatform.mvp.client.ViewImpl;
 public class MainView extends ViewImpl implements MainPresenter.MyView {
 
 	private Viewport viewport;
-	private HeaderPanel headerPanel;
 	private Viewport centerPanel;
+	private ToggleButton homeButton;
+	private ToggleButton dashboardBuilderButton;
+	private ToggleButton queryBuilderButton;
+	private Button signOutButton;
 	
 	@Inject
 	public MainView() {
 		viewport = new Viewport();
 		viewport.setLayout(new BorderLayout());
-		//viewport.setStyleAttribute("padding", "10px");
 		
 		createHeaderPanel();
 		createCenterPanel();
@@ -46,33 +50,63 @@ public class MainView extends ViewImpl implements MainPresenter.MyView {
 	}
 	
 	private void createHeaderPanel() {
-		headerPanel = new HeaderPanel();
-		BorderLayoutData data = new BorderLayoutData(LayoutRegion.NORTH, 40);
+		String str = 
+				"<div id='app-header' class='x-small-editor'>" +
+						"<div id='app-theme'></div>" +
+						"<div id=app-title>Smart BI Prototype</div>" +
+				"</div>"; 
+		HtmlContainer titlePanel = new HtmlContainer(str);
+		titlePanel.setStateful(false);
+		
+		LayoutContainer headerPanel = new LayoutContainer();
+		
+		ToolBar toolBar = new ToolBar();
+		homeButton = new ToggleButton("Home");
+		homeButton.setToggleGroup("navigation");
+		dashboardBuilderButton = new ToggleButton("Dashboard Builder");
+		dashboardBuilderButton.setToggleGroup("navigation");
+		queryBuilderButton = new ToggleButton("Query Builder");
+		queryBuilderButton.setToggleGroup("navigation");
+		toolBar.add(homeButton);
+		toolBar.add(dashboardBuilderButton);
+		toolBar.add(queryBuilderButton);
+		toolBar.add(new FillToolItem());
+		signOutButton = new Button("Sign Out");
+		toolBar.add(signOutButton);
+		
+		headerPanel.add(titlePanel);
+		headerPanel.add(toolBar);
+		
+		BorderLayoutData data = new BorderLayoutData(LayoutRegion.NORTH, 60);
 		data.setMargins(new Margins());
 		viewport.add(headerPanel, data);
+		
 	}
 	
 	private void createCenterPanel() {
 		centerPanel = new Viewport();
-		//centerPanel.setScrollMode(Scroll.AUTO);
-		//centerPanel.setHeaderVisible(false);
 		BorderLayoutData data = new BorderLayoutData(LayoutRegion.CENTER);
 		data.setMargins(new Margins());
 		viewport.add(centerPanel, data);
 	}
 
 	@Override
-	public HasClickHandlers getHomeButton() {
-		return headerPanel.getHomeAnchor();
+	public ToggleButton getHomeButton() {
+		return homeButton;
 	}
 
 	@Override
-	public HasClickHandlers getDashboardBuilderButton() {
-		return headerPanel.getDashboardBuilderAnchor();
+	public ToggleButton getDashboardBuilderButton() {
+		return dashboardBuilderButton;
 	}
 
 	@Override
-	public HasClickHandlers getQueryBuilderButton() {
-		return headerPanel.getQueryBuilderAnchor();
+	public ToggleButton getQueryBuilderButton() {
+		return queryBuilderButton;
+	}
+
+	@Override
+	public Button getSignOutButton() {
+		return signOutButton;
 	}
 }

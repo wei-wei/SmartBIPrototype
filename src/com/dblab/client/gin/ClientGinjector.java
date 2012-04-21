@@ -11,6 +11,7 @@ import com.dblab.client.mvp.SignInPresenter;
 import com.dblab.client.mvp.MainPresenter;
 import com.dblab.client.mvp.HomePresenter;
 import com.dblab.client.mvp.DBBuilderPresenter;
+import com.dblab.client.mvp.QueryBuilderPresenter;
 
 @GinModules({ DispatchAsyncModule.class, ClientModule.class })
 public interface ClientGinjector extends Ginjector {
@@ -26,4 +27,6 @@ public interface ClientGinjector extends Ginjector {
 	AsyncProvider<HomePresenter> getHomePresenter();
 
 	AsyncProvider<DBBuilderPresenter> getDBBuilderPresenter();
+
+	AsyncProvider<QueryBuilderPresenter> getQueryPresenter();
 }

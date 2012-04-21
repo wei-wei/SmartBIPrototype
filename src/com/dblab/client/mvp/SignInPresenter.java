@@ -19,7 +19,7 @@ public class SignInPresenter extends
 		Presenter<SignInPresenter.MyView, SignInPresenter.MyProxy> {
 	
 	private final PlaceManager placeManager;
-	private final SelectionListener<ButtonEvent> listener;
+	private SelectionListener<ButtonEvent> listener;
 	
 	public interface MyView extends View {
 		String getUserName();
@@ -38,12 +38,6 @@ public class SignInPresenter extends
 			final PlaceManager placeManager) {
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
-		listener =	new SelectionListener<ButtonEvent>() {
-						@Override
-						public void componentSelected(ButtonEvent ce) {
-							placeManager.revealPlace(new PlaceRequest(NameTokens.home));
-						}
-					};
 	}
 
 	@Override
@@ -54,6 +48,13 @@ public class SignInPresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
+		
+		listener =	new SelectionListener<ButtonEvent>() {
+			@Override
+			public void componentSelected(ButtonEvent ce) {
+				placeManager.revealPlace(new PlaceRequest(NameTokens.home));
+			}
+		};
 		getView().getSignInButton().addSelectionListener(listener);
 	}
 	

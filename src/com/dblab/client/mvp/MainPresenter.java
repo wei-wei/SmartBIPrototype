@@ -1,9 +1,10 @@
 package com.dblab.client.mvp;
 
 import com.dblab.client.place.NameTokens;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.extjs.gxt.ui.client.event.ButtonEvent;
+import com.extjs.gxt.ui.client.event.SelectionListener;
+import com.extjs.gxt.ui.client.widget.button.Button;
+import com.extjs.gxt.ui.client.widget.button.ToggleButton;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;
@@ -26,11 +27,16 @@ public class MainPresenter extends
 		= new Type<RevealContentHandler<?>>();
 	
 	private final PlaceManager placeManager;
+	private SelectionListener<ButtonEvent> homeListener;
+	private SelectionListener<ButtonEvent> dashboardListener;
+	private SelectionListener<ButtonEvent> queryListener;
+	private SelectionListener<ButtonEvent> signOutListener;
 	
 	public interface MyView extends View {
-		HasClickHandlers getHomeButton();
-		HasClickHandlers getDashboardBuilderButton();
-		HasClickHandlers getQueryBuilderButton();
+		ToggleButton getHomeButton();
+		ToggleButton getDashboardBuilderButton();
+		ToggleButton getQueryBuilderButton();
+		Button getSignOutButton();
 	}
 
 	@ProxyCodeSplit
@@ -44,6 +50,8 @@ public class MainPresenter extends
 			final PlaceManager placeManager) {
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
+		
+		createClickListeners();
 	}
 
 	@Override
@@ -55,28 +63,58 @@ public class MainPresenter extends
 	protected void onBind() {
 		super.onBind();
 		
-		ClickHandler home = new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				placeManager.revealPlace(new PlaceRequest(NameTokens.home));
-			}
-		};
-		registerHandler(getView().getHomeButton().addClickHandler(home));
+		getView().getHomeButton().addSelectionListener(homeListener);
+		getView().getDashboardBuilderButton().addSelectionListener(dashboardListener);
+		getView().getQueryBuilderButton().addSelectionListener(queryListener);
+		getView().getSignOutButton().addSelectionListener(signOutListener);
+	}
+	
+	@Override
+	protected void onUnbind() {
+		super.onUnbind();
 		
-		ClickHandler dashboard = new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				//placeManager.revealPlace(new PlaceRequest(NameTokens.home));
-			}
+		getView().getHomeButton().removeSelectionListener(homeListener);
+		getView().getDashboardBuilderButton().removeSelectionListener(dashboardListener);
+		getView().getQueryBuilderButton().removeSelectionListener(queryListener);
+		getView().getSignOutButton().removeSelectionListener(signOutListener);
+	}
+	
+	@Override
+	protected void onReveal() {
+		super.onReveal();
+	}
+	
+	private void createClickListeners() {
+		homeListener =
+				new SelectionListener<ButtonEvent>() {
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						placeManager.revealPlace(new PlaceRequest(NameTokens.home));
+					}
 		};
-		registerHandler(getView().getHomeButton().addClickHandler(dashboard));
 		
-		ClickHandler query = new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				//placeManager.revealPlace(new PlaceRequest(NameTokens.home));
-			}
+		dashboardListener =
+				new SelectionListener<ButtonEvent>() {
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						placeManager.revealPlace(new PlaceRequest(NameTokens.dbbuilder));
+					}
 		};
-		registerHandler(getView().getHomeButton().addClickHandler(query));
+		
+		queryListener =
+				new SelectionListener<ButtonEvent>() {
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						placeManager.revealPlace(new PlaceRequest(NameTokens.query));
+					}
+		};
+		
+		signOutListener =
+				new SelectionListener<ButtonEvent>() {
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						placeManager.revealPlace(new PlaceRequest(NameTokens.signin));
+					}
+		};
 	}
 }

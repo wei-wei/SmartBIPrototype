@@ -13,6 +13,8 @@ import com.dblab.client.mvp.HomePresenter;
 import com.dblab.client.mvp.HomeView;
 import com.dblab.client.mvp.DBBuilderPresenter;
 import com.dblab.client.mvp.DBBuilderView;
+import com.dblab.client.mvp.QueryBuilderPresenter;
+import com.dblab.client.mvp.QueryBuilderView;
 
 public class ClientModule extends AbstractPresenterModule {
 
@@ -34,5 +36,8 @@ public class ClientModule extends AbstractPresenterModule {
 		bindPresenter(DBBuilderPresenter.class,
 				DBBuilderPresenter.MyView.class, DBBuilderView.class,
 				DBBuilderPresenter.MyProxy.class);
+
+		bindPresenter(QueryBuilderPresenter.class, QueryBuilderPresenter.MyView.class,
+				QueryBuilderView.class, QueryBuilderPresenter.MyProxy.class);
 	}
 }

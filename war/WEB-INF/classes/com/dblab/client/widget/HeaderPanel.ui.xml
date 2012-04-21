@@ -15,14 +15,14 @@
 				<a class="gwt-Anchor main-logo" href="http://www.iccube.com" target="_blank" title="Don't be shy, visit our website."></a>
 				<div class="ic-header-content">
 					<ul class="main-menu">
-						<li><g:Anchor styleName="gwt-Anchor" ui:field="queryBuilderAnchor">Query Builder</g:Anchor></li>
+						<li><g:Anchor ui:field="queryBuilderAnchor">Query Builder</g:Anchor></li>
 						<li class="menu-divider"></li>
-						<li><g:Anchor styleName="gwt-Anchor" ui:field="dashboardBuilderAnchor">Dashboard Builder</g:Anchor></li>
+						<li><g:Anchor ui:field="dashboardBuilderAnchor">Dashboard Builder</g:Anchor></li>
 						<li class="menu-divider"></li>
-						<li><g:Anchor styleName="gwt-Anchor selected" ui:field="homeAnchor">Home</g:Anchor></li>
+						<li><g:Anchor ui:field="homeAnchor">Home</g:Anchor></li>
 					</ul>
 					<ul class="serv-menu">
-						<li><g:Anchor styleName="gwt-Anchor" ui:field="signOutAnchor">Sign Out</g:Anchor></li>
+						<li><g:Anchor ui:field="signOutAnchor">Sign Out</g:Anchor></li>
 					</ul>
 					<div class="clear0"></div>
 				</div>

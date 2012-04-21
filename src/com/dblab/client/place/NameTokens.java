@@ -6,6 +6,7 @@ public class NameTokens {
 	public static final String main = "main";
 	public static final String home = "home";
 	public static final String dbbuilder = "dbbuilder";
+	public static final String query = "query";
 
 	public static String getSignin() {
 		return signin;
@@ -21,5 +22,9 @@ public class NameTokens {
 
 	public static String getDbbuilder() {
 		return dbbuilder;
+	}
+
+	public static String getQuery() {
+		return query;
 	}
 }
