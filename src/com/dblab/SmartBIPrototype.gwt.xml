@@ -12,6 +12,7 @@
 	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
+	<inherits name='com.google.web.bindery.requestfactory.RequestFactory'></inherits>
 	<inherits name='com.google.gwt.visualization.Visualization'></inherits>
 
 	<!-- Other module inherits                                      -->
