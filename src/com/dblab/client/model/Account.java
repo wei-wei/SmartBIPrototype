@@ -19,4 +19,14 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public boolean isEqual(Account account) {
+		String userName = account.getUserName();
+		String password = account.getPassword();
+		
+		if (userName.equals(this.userName) && password.equals(this.password))
+			return true;
+		
+		return false;
+	}
 }

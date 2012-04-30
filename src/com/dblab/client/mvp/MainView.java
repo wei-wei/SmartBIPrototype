@@ -3,6 +3,7 @@ package com.dblab.client.mvp;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.HtmlContainer;
+import com.extjs.gxt.ui.client.widget.Label;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.Viewport;
 import com.extjs.gxt.ui.client.widget.button.Button;
@@ -23,6 +24,7 @@ public class MainView extends ViewImpl implements MainPresenter.MyView {
 	private ToggleButton dashboardBuilderButton;
 	private ToggleButton queryBuilderButton;
 	private Button signOutButton;
+	private Label userNameLabel;
 	
 	@Inject
 	public MainView() {
@@ -71,6 +73,8 @@ public class MainView extends ViewImpl implements MainPresenter.MyView {
 		toolBar.add(dashboardBuilderButton);
 		toolBar.add(queryBuilderButton);
 		toolBar.add(new FillToolItem());
+		userNameLabel = new Label();
+		toolBar.add(userNameLabel);
 		signOutButton = new Button("Sign Out");
 		toolBar.add(signOutButton);
 		
@@ -108,5 +112,10 @@ public class MainView extends ViewImpl implements MainPresenter.MyView {
 	@Override
 	public Button getSignOutButton() {
 		return signOutButton;
+	}
+	
+	@Override
+	public void setUserName(String userName) {
+		userNameLabel.setText(userName);
 	}
 }

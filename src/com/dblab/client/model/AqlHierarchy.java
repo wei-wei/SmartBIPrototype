@@ -10,11 +10,11 @@ public class AqlHierarchy {
 		levelArray = new AqlLevel[levelCount];
 	}
 
-	public int getHierarchyId() {
+	public int getAqlHierarchyId() {
 		return hierarchyId;
 	}
 
-	public void setHierarchyId(int hierarchyId) {
+	public void setAqlHierarchyId(int hierarchyId) {
 		this.hierarchyId = hierarchyId;
 	}
 

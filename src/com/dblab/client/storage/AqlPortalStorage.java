@@ -12,11 +12,24 @@ public class AqlPortalStorage {
 		asPortalList = new ArrayList<AqlPortal>();
 	}
 	
-	public List<AqlPortal> getAsPortalList() {
+	public List<AqlPortal> getAqlPortalList() {
 		return asPortalList;
 	}
 	
-	public void addAsPortal(AqlPortal asPortal) {
+	public void addAqlPortal(AqlPortal asPortal) {
 		asPortalList.add(asPortal);
+	}
+	
+	public void createTestData() {
+		AqlPortal portal;
+		portal = new AqlPortal(3);
+		portal.setName("My Portal 1");
+		addAqlPortal(portal);
+		portal = new AqlPortal(3);
+		portal.setName("My Portal 2");
+		addAqlPortal(portal);
+		portal = new AqlPortal(3);
+		portal.setName("My Portal 3");
+		addAqlPortal(portal);
 	}
 }

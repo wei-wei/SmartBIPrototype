@@ -7,9 +7,13 @@ public class AqlLevel {
 	private int levelIndex;
 	private String mdxStr;
 	
-	public AqlLevel(int memberCount) {
-		memberArray = new AqlMember[memberCount];
+	public AqlLevel() {
+		//memberArray = new AqlMember[memberCount];
 		initMemberArray();
+	}
+	
+	public void setMemberArray(AqlMember[] memberArray) {
+		this.memberArray = memberArray;
 	}
 	
 	public AqlMember[] getAqlMemberArray() {
@@ -24,11 +28,11 @@ public class AqlLevel {
 		this.name = name;
 	}
 
-	public int getHierarchyId() {
+	public int getAqlHierarchyId() {
 		return hierarchyId;
 	}
 
-	public void setHierarchyId(int hierarchyId) {
+	public void setAqlHierarchyId(int hierarchyId) {
 		this.hierarchyId = hierarchyId;
 	}
 
@@ -49,8 +53,8 @@ public class AqlLevel {
 	}
 	
 	private void initMemberArray() {
-		for (int i = 0; i < memberArray.length; ++i) {
+/*		for (int i = 0; i < memberArray.length; ++i) {
 			memberArray[i] = new AqlMember();
-		}
+		}*/
 	}
 }

@@ -1,10 +1,13 @@
 package com.dblab.client.mvp;
 
+import com.dblab.client.model.Account;
 import com.dblab.client.place.NameTokens;
+import com.dblab.client.storage.MetadataManager;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -18,6 +21,7 @@ import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 public class SignInPresenter extends
 		Presenter<SignInPresenter.MyView, SignInPresenter.MyProxy> {
 	
+	private final MetadataManager metadataManager;
 	private final PlaceManager placeManager;
 	private SelectionListener<ButtonEvent> listener;
 	
@@ -35,8 +39,10 @@ public class SignInPresenter extends
 	@Inject
 	public SignInPresenter(final EventBus eventBus, final MyView view,
 			final MyProxy proxy,
+			final MetadataManager metadataManager,
 			final PlaceManager placeManager) {
 		super(eventBus, view, proxy);
+		this.metadataManager = metadataManager;
 		this.placeManager = placeManager;
 	}
 
@@ -52,7 +58,15 @@ public class SignInPresenter extends
 		listener =	new SelectionListener<ButtonEvent>() {
 			@Override
 			public void componentSelected(ButtonEvent ce) {
-				placeManager.revealPlace(new PlaceRequest(NameTokens.home));
+				Account account = new Account();
+				account.setUserName(getView().getUserName());
+				account.setPassword(getView().getPassword());
+				if (metadataManager.userSignIn(account)) {
+					metadataManager.setCurrentAccount(account);
+					placeManager.revealPlace(new PlaceRequest(NameTokens.home));
+				} else {
+					Window.alert("User Name or Password Error!");
+				}
 			}
 		};
 		getView().getSignInButton().addSelectionListener(listener);

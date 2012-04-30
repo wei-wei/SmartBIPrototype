@@ -7,7 +7,8 @@ public class AqlDimension {
 	private String name;
 	private List<AqlHierarchy> hierarchyList;
 	
-	public AqlDimension() {
+	public AqlDimension(String name) {
+		this.name = name;
 		hierarchyList = new ArrayList<AqlHierarchy>();
 	}
 

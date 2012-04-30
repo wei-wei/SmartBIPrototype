@@ -5,8 +5,8 @@ import java.util.Map;
 import com.dblab.client.model.AqlHierarchy;
 
 public class AqlUnit {
-	private List<>
-	private Map<Integer, AqlHierarchy> hierarchyMap;
+/*	private List<>
+	//private Map<Integer, AqlHierarchy> hierarchyMap;
 
 	public Map<Integer, AqlHierarchy> getHierarchyMap() {
 		return hierarchyMap;
@@ -15,6 +15,6 @@ public class AqlUnit {
 	public void setHierarchyMap(Map<Integer, AqlHierarchy> hierarchyMap) {
 		this.hierarchyMap = hierarchyMap;
 	}
-	
+	*/
 	
 }

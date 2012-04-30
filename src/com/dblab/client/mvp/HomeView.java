@@ -1,5 +1,9 @@
 package com.dblab.client.mvp;
 
+import java.util.Arrays;
+import java.util.List;
+
+import com.dblab.client.portal.AqlPortal;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.Style.Scroll;
 import com.extjs.gxt.ui.client.util.Margins;
@@ -7,7 +11,13 @@ import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Viewport;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
+import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 
@@ -38,6 +48,22 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 		data.setSplit(true);
 		data.setCollapsible(true);
 		data.setMargins(new Margins(0, 5, 0, 0));
+		
+		List<String> DAYS = Arrays.asList("Sunday", "Monday",
+			      "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+
+		TextCell textCell = new TextCell();
+
+	    // Create a CellList that uses the cell.
+	    CellList<String> cellList = new CellList<String>(textCell);
+
+	    // Set the total row count. This isn't strictly necessary, but it affects
+	    // paging calculations, so its good habit to keep the row count up to date.
+	    cellList.setRowCount(DAYS.size(), true);
+
+	    // Push the data into the widget.
+	    cellList.setRowData(0, DAYS);
+		westPanel.add(cellList);
 		viewport.add(westPanel, data);
 	}
 	
@@ -47,5 +73,42 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 		BorderLayoutData data = new BorderLayoutData(LayoutRegion.CENTER);
 		data.setMargins(new Margins());
 		viewport.add(centerPanel, data);
+	}
+
+	@Override
+	public void setAqlPortalList(List<AqlPortal> list) {
+		westPanel.removeAll();
+		
+		AbstractCell<AqlPortal> cell = new AbstractCell<AqlPortal>() {
+			@Override
+			public void render(com.google.gwt.cell.client.Cell.Context context,
+					AqlPortal value, SafeHtmlBuilder sb) {
+				if (value == null) {
+					return;
+				}
+				
+				sb.appendHtmlConstant("<div>");
+				sb.appendEscaped(value.getName());
+				sb.appendHtmlConstant("</div>");
+			}
+		};
+		
+		CellList<AqlPortal> cellList = new CellList<AqlPortal>(cell);
+		cellList.setRowCount(list.size(), true);
+		cellList.setRowData(0, list);
+		
+		final SingleSelectionModel<AqlPortal> selectionModel =
+				new SingleSelectionModel<AqlPortal>();
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				centerPanel.removeAll();
+				centerPanel.add(selectionModel.getSelectedObject());
+				viewport.layout(true);
+			}
+		});
+		
+		westPanel.add(cellList);
+		viewport.layout(true);
 	}
 }

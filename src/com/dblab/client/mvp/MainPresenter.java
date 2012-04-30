@@ -1,6 +1,7 @@
 package com.dblab.client.mvp;
 
 import com.dblab.client.place.NameTokens;
+import com.dblab.client.storage.MetadataManager;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.button.Button;
@@ -26,6 +27,7 @@ public class MainPresenter extends
 	public static final Type<RevealContentHandler<?>> TYPE_SetMainContent
 		= new Type<RevealContentHandler<?>>();
 	
+	private final MetadataManager metadataManager;
 	private final PlaceManager placeManager;
 	private SelectionListener<ButtonEvent> homeListener;
 	private SelectionListener<ButtonEvent> dashboardListener;
@@ -37,6 +39,7 @@ public class MainPresenter extends
 		ToggleButton getDashboardBuilderButton();
 		ToggleButton getQueryBuilderButton();
 		Button getSignOutButton();
+		void setUserName(String userName);
 	}
 
 	@ProxyCodeSplit
@@ -47,10 +50,11 @@ public class MainPresenter extends
 	@Inject
 	public MainPresenter(final EventBus eventBus, final MyView view,
 			final MyProxy proxy,
+			final MetadataManager metadataManager,
 			final PlaceManager placeManager) {
 		super(eventBus, view, proxy);
+		this.metadataManager = metadataManager;
 		this.placeManager = placeManager;
-		
 		createClickListeners();
 	}
 
@@ -82,6 +86,7 @@ public class MainPresenter extends
 	@Override
 	protected void onReveal() {
 		super.onReveal();
+		getView().setUserName(metadataManager.getCurrentAccount().getUserName());
 	}
 	
 	private void createClickListeners() {
