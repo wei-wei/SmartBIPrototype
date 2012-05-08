@@ -10,6 +10,7 @@ public class TestMetadataManager implements MetadataManager {
 	private AqlPortalStorage portalStorage;
 	private SharedCubeStorage cubeStorage;
 	private Account account;
+	private VirtualCube cube;
 	
 	public TestMetadataManager() {
 		portalStorage = new AqlPortalStorage();
@@ -17,6 +18,7 @@ public class TestMetadataManager implements MetadataManager {
 		cubeStorage = new SharedCubeStorage();
 		cubeStorage.createTestData();
 		account = new Account();
+		cube = new VirtualCube();
 	}
 	
 	@Override
@@ -51,5 +53,10 @@ public class TestMetadataManager implements MetadataManager {
 	@Override
 	public void addAqlPortal(AqlPortal portal) {
 		portalStorage.addAqlPortal(portal);
+	}
+	
+	@Override
+	public VirtualCube getVirtualCube() {
+		return cube;
 	}
 }

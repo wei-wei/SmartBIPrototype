@@ -1,7 +1,5 @@
 package com.dblab.client.mvp;
 
-import java.util.Arrays;
-import java.util.List;
 
 import com.dblab.client.model.AqlCube;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
@@ -132,14 +130,6 @@ public class DBBuilderView extends ViewImpl implements
 		viewport.layout(true);
 	}
 
-	private void setAddDimPanel(AqlCube cube) {
-		
-	}
-	
-	private void setAddMeaPanel(AqlCube cube) {
-		
-	}
-
 	@Override
 	public void setAqlDimView(CellTree cellTree) {
 		dimPanel.removeAll();
@@ -156,13 +146,25 @@ public class DBBuilderView extends ViewImpl implements
 
 	@Override
 	public void setSelAqlDimView(CellTree cellTree) {
-		// TODO Auto-generated method stub
-		
+		selDimPanel.removeAll();
+		selDimPanel.add(cellTree);
+		viewport.layout(true);
 	}
 
 	@Override
-	public void setSelAqlMeaView(CellTree cellTree) {
-		// TODO Auto-generated method stub
-		
+	public void setSelAqlMeaView(CellList<String> cellList) {
+		selMeaPanel.removeAll();
+		selMeaPanel.add(cellList);
+		viewport.layout(true);
+	}
+
+	@Override
+	public Button getCancelButton() {
+		return cancelButton;
+	}
+
+	@Override
+	public Button getNextButton() {
+		return nextButton;
 	}
 }

@@ -14,4 +14,5 @@ public interface MetadataManager {
 	public List<AqlCube> getAqlCubeList();
 	public List<AqlPortal> getAqlPortalList();
 	public void addAqlPortal(AqlPortal portal);
+	public VirtualCube getVirtualCube();
 }

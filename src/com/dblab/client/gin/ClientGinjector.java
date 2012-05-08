@@ -12,6 +12,7 @@ import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 import com.gwtplatform.dispatch.client.gin.DispatchAsyncModule;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.dblab.client.mvp.ConfigMashupPresenter;
 
 @GinModules({ DispatchAsyncModule.class, ClientModule.class, SmartBIModule.class })
 public interface ClientGinjector extends Ginjector {
@@ -31,4 +32,6 @@ public interface ClientGinjector extends Ginjector {
 	AsyncProvider<QueryBuilderPresenter> getQueryPresenter();
 	
 	MetadataManager getMetadataManager();
+
+	AsyncProvider<ConfigMashupPresenter> getConfigMashupPresenter();
 }

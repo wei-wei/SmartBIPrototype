@@ -5,10 +5,14 @@ import java.util.List;
 
 import com.dblab.client.model.AqlCube;
 import com.dblab.client.model.AqlHierarchy;
+import com.dblab.client.model.DSDimTreeViewModel;
 import com.dblab.client.model.DimTreeViewModel;
 import com.dblab.client.model.MeaTreeViewModel;
 import com.dblab.client.place.NameTokens;
 import com.dblab.client.storage.MetadataManager;
+import com.extjs.gxt.ui.client.event.ButtonEvent;
+import com.extjs.gxt.ui.client.event.SelectionListener;
+import com.extjs.gxt.ui.client.widget.button.Button;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
@@ -23,6 +27,8 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 
@@ -30,13 +36,16 @@ public class DBBuilderPresenter extends
 		Presenter<DBBuilderPresenter.MyView, DBBuilderPresenter.MyProxy> {
 
 	private MetadataManager metadataManager;
+	private PlaceManager placeManager;
 	
 	public interface MyView extends View {
 		void setAqlCubeList(CellList<AqlCube> cellList);
 		void setAqlDimView(CellTree cellTree);
 		void setAqlMeaView(CellTree cellTree);
 		void setSelAqlDimView(CellTree cellTree);
-		void setSelAqlMeaView(CellTree cellTree);
+		void setSelAqlMeaView(CellList<String> cellList);
+		Button getCancelButton();
+		Button getNextButton();
 	}
 
 	@ProxyCodeSplit
@@ -47,9 +56,11 @@ public class DBBuilderPresenter extends
 	@Inject
 	public DBBuilderPresenter(final EventBus eventBus, final MyView view,
 			final MyProxy proxy,
-			MetadataManager metadataManager) {
+			MetadataManager metadataManager,
+			final PlaceManager placeManager) {
 		super(eventBus, view, proxy);
 		this.metadataManager = metadataManager;
+		this.placeManager = placeManager;
 	}
 
 	@Override
@@ -60,12 +71,33 @@ public class DBBuilderPresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
+		
+		getView().getCancelButton().addSelectionListener(
+				new SelectionListener<ButtonEvent>() {
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+					}
+				});
+		
+		getView().getNextButton().addSelectionListener(
+				new SelectionListener<ButtonEvent>() {
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						placeManager.revealPlace(new PlaceRequest(NameTokens.configmashup));
+					}
+				});
+	}
+	
+	@Override
+	protected void onUnbind() {
+		super.onUnbind();
+		getView().getCancelButton().removeAllListeners();
+		getView().getNextButton().removeAllListeners();
 	}
 	
 	@Override
 	protected void onReveal() {
 		super.onReveal();
-		//getView().setAqlCubeList(metadataManager.getAqlCubeList());
 		initCubeList();
 	}
 	
@@ -102,6 +134,8 @@ public class DBBuilderPresenter extends
 	}
 	
 	private void selectedAqlCube(AqlCube cube) {
+		metadataManager.getVirtualCube().setAqlCube(cube);
+		
 		final MultiSelectionModel<AqlHierarchy> dimSelectionModel =
 				new MultiSelectionModel<AqlHierarchy>();
 		dimSelectionModel.addSelectionChangeHandler(
@@ -110,7 +144,7 @@ public class DBBuilderPresenter extends
 					public void onSelectionChange(SelectionChangeEvent event) {
 						List<AqlHierarchy> selected = 
 								new ArrayList<AqlHierarchy>(dimSelectionModel.getSelectedSet());
-						//updateDimensionDataSet(selected);
+						updateDimensionDataSet(selected);
 					}
 		});
 		
@@ -129,7 +163,7 @@ public class DBBuilderPresenter extends
 					public void onSelectionChange(SelectionChangeEvent event) {
 						List<String> selected =
 								new ArrayList<String>(meaSelectionModel.getSelectedSet());
-						//updateMeasureDataSet(selected);
+						updateMeasureDataSet(selected);
 					}
 		});
 		
@@ -138,6 +172,39 @@ public class DBBuilderPresenter extends
 				new MeaTreeViewModel(meaSelectionModel, cube.getAqlMeasureList()), null, res2);
 		
 		getView().setAqlMeaView(cellTree2);
+	}
+	
+	private void updateDimensionDataSet(List<AqlHierarchy> list) {
+		metadataManager.getVirtualCube().setAqlHierarchyList(list);
+		
+		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
+		CellTree cellTree = new CellTree(
+				new DSDimTreeViewModel(null, list), null, res);
+		getView().setSelAqlDimView(cellTree);
+	}
+	
+	private void updateMeasureDataSet(List<String> list) {
+		metadataManager.getVirtualCube().setMeasureList(list);
+		
+		AbstractCell<String> cell = new AbstractCell<String>() {
+			@Override
+			public void render(Context context,
+					String value, SafeHtmlBuilder sb) {
+				if (value == null) {
+					return;
+				}
+				
+				sb.appendHtmlConstant("<div>");
+				sb.appendEscaped(value);
+				sb.appendHtmlConstant("</div>");
+			}
+		};
+		
+		CellList<String> cellList = new CellList<String>(cell);
+		cellList.setRowCount(list.size(), true);
+		cellList.setRowData(0, list);
+		
+		getView().setSelAqlMeaView(cellList);
 	}
 	
 }

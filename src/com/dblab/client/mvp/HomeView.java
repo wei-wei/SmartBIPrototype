@@ -1,6 +1,5 @@
 package com.dblab.client.mvp;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.dblab.client.portal.AqlPortal;
@@ -12,7 +11,6 @@ import com.extjs.gxt.ui.client.widget.Viewport;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
 import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Widget;
@@ -45,25 +43,6 @@ public class HomeView extends ViewImpl implements HomePresenter.MyView {
 	private void createWestPanel() {
 		westPanel = new ContentPanel();
 		BorderLayoutData data = new BorderLayoutData(LayoutRegion.WEST, 250);
-		data.setSplit(true);
-		data.setCollapsible(true);
-		data.setMargins(new Margins(0, 5, 0, 0));
-		
-		List<String> DAYS = Arrays.asList("Sunday", "Monday",
-			      "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-
-		TextCell textCell = new TextCell();
-
-	    // Create a CellList that uses the cell.
-	    CellList<String> cellList = new CellList<String>(textCell);
-
-	    // Set the total row count. This isn't strictly necessary, but it affects
-	    // paging calculations, so its good habit to keep the row count up to date.
-	    cellList.setRowCount(DAYS.size(), true);
-
-	    // Push the data into the widget.
-	    cellList.setRowData(0, DAYS);
-		westPanel.add(cellList);
 		viewport.add(westPanel, data);
 	}
 	
