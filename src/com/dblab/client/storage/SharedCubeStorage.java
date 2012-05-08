@@ -7,6 +7,7 @@ import com.dblab.client.model.AqlCube;
 import com.dblab.client.model.AqlDimension;
 import com.dblab.client.model.AqlHierarchy;
 import com.dblab.client.model.AqlLevel;
+import com.dblab.client.model.AqlMeasure;
 
 public class SharedCubeStorage {
 	private List<AqlCube> cubeList;
@@ -27,6 +28,7 @@ public class SharedCubeStorage {
 		IdManager idManager = new IdManager();
 		TestData data = new TestData();
 		AqlCube cube = new AqlCube("Sales");
+		cube.setMdxStr("[Sales]");
 		AqlDimension dim;
 		AqlHierarchy hie;
 		AqlLevel level;
@@ -141,6 +143,13 @@ public class SharedCubeStorage {
 		dim.addAqlHierarchy(hie);
 		cube.addAqlDimension(dim);
 		cube.addAqlHierarchy(hie);
+		
+		AqlMeasure measure = new AqlMeasure();
+		measure.setName("Measures");
+		measure.addAqlMeasure("Amount");
+		measure.addAqlMeasure("Count");
+		measure.setMdxStr("[Measures]");
+		cube.addAqlMeasure(measure);
 		
 		cubeList.add(cube);
 	}

@@ -31,13 +31,13 @@ public class MainPresenter extends
 	private final PlaceManager placeManager;
 	private SelectionListener<ButtonEvent> homeListener;
 	private SelectionListener<ButtonEvent> dashboardListener;
-	private SelectionListener<ButtonEvent> queryListener;
+	//private SelectionListener<ButtonEvent> queryListener;
 	private SelectionListener<ButtonEvent> signOutListener;
 	
 	public interface MyView extends View {
 		ToggleButton getHomeButton();
 		ToggleButton getDashboardBuilderButton();
-		ToggleButton getQueryBuilderButton();
+	//	ToggleButton getQueryBuilderButton();
 		Button getSignOutButton();
 		void setUserName(String userName);
 	}
@@ -69,7 +69,7 @@ public class MainPresenter extends
 		
 		getView().getHomeButton().addSelectionListener(homeListener);
 		getView().getDashboardBuilderButton().addSelectionListener(dashboardListener);
-		getView().getQueryBuilderButton().addSelectionListener(queryListener);
+		//getView().getQueryBuilderButton().addSelectionListener(queryListener);
 		getView().getSignOutButton().addSelectionListener(signOutListener);
 	}
 	
@@ -79,7 +79,7 @@ public class MainPresenter extends
 		
 		getView().getHomeButton().removeSelectionListener(homeListener);
 		getView().getDashboardBuilderButton().removeSelectionListener(dashboardListener);
-		getView().getQueryBuilderButton().removeSelectionListener(queryListener);
+		//getView().getQueryBuilderButton().removeSelectionListener(queryListener);
 		getView().getSignOutButton().removeSelectionListener(signOutListener);
 	}
 	
@@ -106,13 +106,13 @@ public class MainPresenter extends
 					}
 		};
 		
-		queryListener =
+/*		queryListener =
 				new SelectionListener<ButtonEvent>() {
 					@Override
 					public void componentSelected(ButtonEvent ce) {
 						placeManager.revealPlace(new PlaceRequest(NameTokens.query));
 					}
-		};
+		};*/
 		
 		signOutListener =
 				new SelectionListener<ButtonEvent>() {

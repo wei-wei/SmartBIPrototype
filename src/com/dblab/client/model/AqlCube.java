@@ -8,11 +8,14 @@ import java.util.Map;
 public class AqlCube {
 	private String name;
 	private List<AqlDimension> dimensionList;
+	private List<AqlMeasure> measureList;
 	private Map<Integer, AqlHierarchy> hierarchyMap;
-	
+	private String mdxStr;
+
 	public AqlCube(String name) {
 		this.name = name;
 		dimensionList = new ArrayList<AqlDimension>();
+		measureList = new ArrayList<AqlMeasure>();
 		hierarchyMap = new HashMap<Integer, AqlHierarchy>();
 	}
 	
@@ -28,6 +31,14 @@ public class AqlCube {
 		dimensionList.add(dimension);
 	}
 	
+	public List<AqlMeasure> getAqlMeasureList() {
+		return measureList;
+	}
+	
+	public void addAqlMeasure(AqlMeasure measure) {
+		measureList.add(measure);
+	}
+	
 	public AqlHierarchy getAqlHierarchy(int id) {
 		return hierarchyMap.get(id);
 	}
@@ -39,5 +50,13 @@ public class AqlCube {
 	
 	public Map<Integer, AqlHierarchy> getAqlHierarchyMap() {
 		return hierarchyMap;
+	}
+	
+	public String getMdxStr() {
+		return mdxStr;
+	}
+
+	public void setMdxStr(String mdxStr) {
+		this.mdxStr = mdxStr;
 	}
 }

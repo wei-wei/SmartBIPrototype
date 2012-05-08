@@ -22,7 +22,7 @@ public class MainView extends ViewImpl implements MainPresenter.MyView {
 	private Viewport centerPanel;
 	private ToggleButton homeButton;
 	private ToggleButton dashboardBuilderButton;
-	private ToggleButton queryBuilderButton;
+	//private ToggleButton queryBuilderButton;
 	private Button signOutButton;
 	private Label userNameLabel;
 	
@@ -63,15 +63,15 @@ public class MainView extends ViewImpl implements MainPresenter.MyView {
 		LayoutContainer headerPanel = new LayoutContainer();
 		
 		ToolBar toolBar = new ToolBar();
-		homeButton = new ToggleButton("Home");
+		homeButton = new ToggleButton("Business View Explorer");
 		homeButton.setToggleGroup("navigation");
-		dashboardBuilderButton = new ToggleButton("Dashboard Builder");
+		dashboardBuilderButton = new ToggleButton("Business View Designer");
 		dashboardBuilderButton.setToggleGroup("navigation");
-		queryBuilderButton = new ToggleButton("Query Builder");
-		queryBuilderButton.setToggleGroup("navigation");
+		//queryBuilderButton = new ToggleButton("Query Builder");
+		//queryBuilderButton.setToggleGroup("navigation");
 		toolBar.add(homeButton);
 		toolBar.add(dashboardBuilderButton);
-		toolBar.add(queryBuilderButton);
+		//toolBar.add(queryBuilderButton);
 		toolBar.add(new FillToolItem());
 		userNameLabel = new Label();
 		toolBar.add(userNameLabel);
@@ -104,10 +104,10 @@ public class MainView extends ViewImpl implements MainPresenter.MyView {
 		return dashboardBuilderButton;
 	}
 
-	@Override
+/*	@Override
 	public ToggleButton getQueryBuilderButton() {
 		return queryBuilderButton;
-	}
+	}*/
 
 	@Override
 	public Button getSignOutButton() {
