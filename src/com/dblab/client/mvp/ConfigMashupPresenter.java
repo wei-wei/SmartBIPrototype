@@ -3,6 +3,7 @@ package com.dblab.client.mvp;
 import com.dblab.client.place.NameTokens;
 import com.dblab.client.portal.AqlUnit;
 import com.dblab.client.storage.MetadataManager;
+import com.dblab.client.storage.VirtualCube;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.button.Button;
@@ -19,12 +20,13 @@ public class ConfigMashupPresenter extends
 		Presenter<ConfigMashupPresenter.MyView, ConfigMashupPresenter.MyProxy> {
 
 	private MetadataManager metadataManager;
+	private VirtualCube vCube;
 	private AqlUnit aqlUnit;
 	
 	public interface MyView extends View {
 		Button getAddListButton();
 		Button getAddChartButton();
-		void initPortal(AqlUnit aqlUnit);
+		void initPortal(VirtualCube vCube, AqlUnit aqlUnit);
 		void addListPortlet();
 	}
 
@@ -39,6 +41,7 @@ public class ConfigMashupPresenter extends
 			MetadataManager metadataManager) {
 		super(eventBus, view, proxy);
 		this.metadataManager = metadataManager;
+		vCube = metadataManager.getVirtualCube();
 		aqlUnit = new AqlUnit(metadataManager.getVirtualCube().getAqlCube().getAqlHierarchyMap());
 	}
 
@@ -63,7 +66,7 @@ public class ConfigMashupPresenter extends
 	@Override
 	protected void onReveal() {
 		super.onReveal();
-		getView().initPortal(aqlUnit);
+		getView().initPortal(vCube, aqlUnit);
 	}
 
 	@Override

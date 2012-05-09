@@ -2,6 +2,7 @@ package com.dblab.client.portal;
 
 import java.util.List;
 
+import com.dblab.client.model.AqlHierarchy;
 import com.dblab.client.model.AqlLevel;
 import com.dblab.client.model.AqlMember;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
@@ -91,5 +92,26 @@ public class ListPortlet extends Portlet implements HasDisplay {
 		for (int i = 0; i < members.length; ++i) {
 			data.setValue(i, 0, members[i].value);
 		}
+	}
+
+	@Override
+	public void setDisplayAqlLevel(AqlLevel level) {
+		hId = level.getAqlHierarchyId();
+		lIndex = level.getLevelIndex();
+	}
+
+	@Override
+	public void setDisplayAqlHierarchy(AqlHierarchy hierarchy) {
+		// empty for ListPortlet
+	}
+
+	@Override
+	public void setDisplayAqlMeasure(String measure) {
+		// empty for ListPortlet
+	}
+
+	@Override
+	public void setDisplayFilterAqlHierarchy(AqlHierarchy hierarchy) {
+		// empty for ListPortlet;
 	}
 }

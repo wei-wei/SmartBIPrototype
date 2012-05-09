@@ -1,15 +1,15 @@
 package com.dblab.client.portal;
 
-import com.extjs.gxt.ui.client.event.ButtonEvent;
+import com.dblab.client.storage.VirtualCube;
 import com.extjs.gxt.ui.client.event.IconButtonEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.button.ToolButton;
 import com.extjs.gxt.ui.client.widget.custom.Portal;
-import com.extjs.gxt.ui.client.widget.custom.Portlet;
 
 public class AqlPortal extends Portal {
 	private static final int columnCount = 3;
 	private String name;
+	private VirtualCube vCube;
 	private AqlUnit aqlUnit;
 	private int portletCount;
 	
@@ -26,6 +26,14 @@ public class AqlPortal extends Portal {
 		this.name = name;
 	}
 
+	public VirtualCube getVirtualCube() {
+		return vCube;
+	}
+	
+	public void setVirtualCube(VirtualCube vCube) {
+		this.vCube = vCube;
+	}
+	
 	public AqlUnit getAqlUnit() {
 		return aqlUnit;
 	}
@@ -44,10 +52,11 @@ public class AqlPortal extends Portal {
 		}
 	}
 	
-	private void configurePortlet(final Portlet portlet) {
+	private void configurePortlet(final ListPortlet portlet) {
 		portlet.setCollapsible(true);
 		portlet.setAnimCollapse(false);
-		portlet.getHeader().addTool(new ToolButton("x-tool-gear"));
+		portlet.getHeader().addTool(new ToolButton("x-tool-gear",
+				new ConfigSelectionListener<IconButtonEvent>(vCube, aqlUnit, portlet)));
 		portlet.getHeader().addTool(new ToolButton("x-tool-close",
 				new SelectionListener<IconButtonEvent>() {
 					@Override

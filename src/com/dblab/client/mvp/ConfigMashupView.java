@@ -3,6 +3,7 @@ package com.dblab.client.mvp;
 
 import com.dblab.client.portal.AqlPortal;
 import com.dblab.client.portal.AqlUnit;
+import com.dblab.client.storage.VirtualCube;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.Style.Scroll;
 import com.extjs.gxt.ui.client.util.Margins;
@@ -76,7 +77,8 @@ public class ConfigMashupView extends ViewImpl implements
 	}
 
 	@Override
-	public void initPortal(AqlUnit aqlUnit) {
+	public void initPortal(VirtualCube vCube, AqlUnit aqlUnit) {
+		portal.setVirtualCube(vCube);
 		portal.setAqlUnit(aqlUnit);
 	}
 
