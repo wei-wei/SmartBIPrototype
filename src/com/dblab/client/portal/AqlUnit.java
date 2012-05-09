@@ -51,14 +51,19 @@ public class AqlUnit {
 		if (childIndex > 0) {
 			AqlLevel childLevel = hierarchyMap.get(hierarchyId).getAqlLevel(childIndex);
 			AqlMember[] members = childLevel.getAqlMemberArray();
-			List<Integer> list = new ArrayList<Integer>();
-			for (int i = 0; i < childlist.size(); ++i) {
-				list.add(members[childlist.get(i)].parentIndex);
-			}
+			//List<Integer> list = new ArrayList<Integer>();
 			int currentIndex = childIndex - 1;
 			AqlLevel currentLevel = hierarchyMap.get(hierarchyId).getAqlLevel(currentIndex);
-			currentLevel.updateDisplay(list);
-			updateParentLevel(hierarchyId, currentIndex, list);
+			currentLevel.clearSelected();
+			for (int i = 0; i < childlist.size(); ++i) {
+				currentLevel.addSelected(members[childlist.get(i)].parentIndex);
+				//list.add(members[childlist.get(i)].parentIndex);
+			}
+			//int currentIndex = childIndex - 1;
+			//AqlLevel currentLevel = hierarchyMap.get(hierarchyId).getAqlLevel(currentIndex);
+			//currentLevel.updateDisplay(list);
+			currentLevel.updateDisplay();
+			updateParentLevel(hierarchyId, currentIndex, currentLevel.getSelectedMember());
 		}
 	}
 	
@@ -67,18 +72,24 @@ public class AqlUnit {
 		if (parentIndex < lowestIndex) {
 			AqlLevel parentLevel = hierarchyMap.get(hierarchyId).getAqlLevel(parentIndex);
 			AqlMember[] members = parentLevel.getAqlMemberArray();
-			List<Integer> list = new ArrayList<Integer>();
+			int currentIndex = parentIndex + 1;
+			AqlLevel currentLevel = hierarchyMap.get(hierarchyId).getAqlLevel(currentIndex);
+			currentLevel.clearSelected();
+			//List<Integer> list = new ArrayList<Integer>();
 			for (int i = 0; i < parentlist.size(); ++i) {
 				int start = members[parentlist.get(i)].childStart;
 				int end = members[parentlist.get(i)].childEnd;
 				for (int j = start; j <= end; ++j) {
-					list.add(j);
+					currentLevel.addSelected(j);
+					//list.add(j);
 				}
 			}
-			int currentIndex = parentIndex + 1;
-			AqlLevel currentLevel = hierarchyMap.get(hierarchyId).getAqlLevel(currentIndex);
-			currentLevel.updateDisplay(list);
-			updateChildLevel(hierarchyId, currentIndex, list);
+			//int currentIndex = parentIndex + 1;
+			//AqlLevel currentLevel = hierarchyMap.get(hierarchyId).getAqlLevel(currentIndex);
+			//currentLevel.updateDisplay(list);
+			currentLevel.updateDisplay();
+			updateChildLevel(hierarchyId, currentIndex, currentLevel.getSelectedMember());
+			//updateChildLevel(hierarchyId, currentIndex, list);
 		}
 	}
 	

@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.dblab.client.model.AqlHierarchy;
 import com.dblab.client.storage.VirtualCube;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -14,8 +16,10 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.visualization.client.visualizations.corechart.CoreChart;
 
 public class ChartPortletConfigBox extends PortletConfigBox {
+	private ListBox tComboBox;
 	private ListBox hComboBox;
 	private ListBox mComboBox;
 	private ListBox fhComboBox;
@@ -27,7 +31,9 @@ public class ChartPortletConfigBox extends PortletConfigBox {
 	private String selM;
 	private List<AqlHierarchy> fhList;
 	private AqlHierarchy selFH;
+	private CoreChart.Type type;
 	
+	private static final CoreChart.Type[] types = {CoreChart.Type.AREA, CoreChart.Type.BARS, CoreChart.Type.COLUMNS, CoreChart.Type.PIE};
 	
 	public ChartPortletConfigBox(HasDisplay display, VirtualCube vCube) {
 		super(display, vCube);
@@ -45,20 +51,35 @@ public class ChartPortletConfigBox extends PortletConfigBox {
 		setWidget(verticalPanel);
 		verticalPanel.setSize("300px", "180px");
 		
+		HorizontalPanel tPanel = new HorizontalPanel();
+		tPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		tPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.add(tPanel);
+		tPanel.setSize("300px", "40px");
+		
+		Label label = new Label("Chart Type");
+		label.setSize("50px", "20px");
+		tPanel.add(label);
+		
+		tComboBox = new ListBox(false);
+		tPanel.add(tComboBox);
+		tComboBox.setSize("200px", "20px");
+		initTComboBox();
+		
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		hPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.add(hPanel);
 		hPanel.setSize("300px", "40px");
 		
-		Label label = new Label("Hierarchy");
+		label = new Label("Hierarchy");
 		label.setSize("50px", "20px");
 		hPanel.add(label);
 		
 		hComboBox = new ListBox(false);
 		hPanel.add(hComboBox);
 		hComboBox.setSize("200px", "20px");
-		initHComboBox(hComboBox, hList, selH);
+		initHComboBox();
 		
 		HorizontalPanel mPanel = new HorizontalPanel();
 		mPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -73,7 +94,7 @@ public class ChartPortletConfigBox extends PortletConfigBox {
 		mComboBox = new ListBox(false);
 		mPanel.add(mComboBox);
 		mComboBox.setSize("200px", "20px");
-		initMComboBox(mComboBox, mList, selM);
+		initMComboBox();
 		
 /*		HorizontalPanel fhPanel = new HorizontalPanel();
 		fhPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -119,35 +140,71 @@ public class ChartPortletConfigBox extends PortletConfigBox {
 		buttonPanel.add(cancelButton);
 	}
 	
-	private void initHComboBox(ListBox comboBox, List<AqlHierarchy> hList, AqlHierarchy sel) {
+	private void initTComboBox() {
+		for (int i = 0; i < types.length; ++i) {
+			tComboBox.addItem(types[i].toString());
+		}
+		
+		tComboBox.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				int i = tComboBox.getSelectedIndex();
+				type = types[i];
+			}
+		});
+		
+		type = types[0];
+	}
+	
+	private void initHComboBox() {
 		hList = new ArrayList<AqlHierarchy>();
 		List<AqlHierarchy> list = vCube.getAqlHierarchyList();
 		for (int i = 0; i < list.size(); ++i) {
 			AqlHierarchy h = list.get(i);
 			hList.add(h);
-			comboBox.addItem(h.getName());
+			hComboBox.addItem(h.getName());
 		}
-
+		
+		hComboBox.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				int i = hComboBox.getSelectedIndex();
+				selH = hList.get(i);
+			}
+		});
+		
 		if (hList.size() > 0) {
-			sel = hList.get(0);
+			selH = hList.get(0);
 		}
 	}
 	
-	private void initMComboBox(ListBox comboBox, List<String> mList, String sel) {
+	private void initMComboBox() {
 		mList = new ArrayList<String>();
 		List<String> list = vCube.getMeasureList();
 		for (int i = 0; i < list.size(); ++i) {
 			String m = list.get(i);
 			mList.add(m);
-			comboBox.addItem(m);
+			mComboBox.addItem(m);
 		}
 		
+		mComboBox.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				int i = mComboBox.getSelectedIndex();
+				selM = mList.get(i);
+			}
+		});
+		
 		if (mList.size() > 0) {
-			sel = mList.get(0);
+			selM = mList.get(0);
 		}
 	}
 	
 	private void configureDisplay() {
+		display.setDisplayChartType(type);
+		display.setDisplayAqlHierarchy(selH);
+		display.setDisplayAqlMeasure(selM);
+		display.updateDisplay();
 		hide();
 	}
 }

@@ -13,6 +13,7 @@ import com.google.gwt.visualization.client.DataTable;
 import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
 import com.google.gwt.visualization.client.Selection;
 import com.google.gwt.visualization.client.visualizations.Table;
+import com.google.gwt.visualization.client.visualizations.corechart.CoreChart.Type;
 
 public class ListPortlet extends Portlet implements HasDisplay {
 	private ContentPanel panel;
@@ -113,12 +114,16 @@ public class ListPortlet extends Portlet implements HasDisplay {
 
 	@Override
 	public void setDisplayFilterAqlHierarchy(AqlHierarchy hierarchy) {
-		// empty for ListPortlet;
+		// empty for ListPortlet
 	}
 
 	@Override
 	public void setDisplayTitle(String title) {
-		// TODO Auto-generated method stub
-		
+		// empty for ListPortlet
+	}
+
+	@Override
+	public void setDisplayChartType(Type type) {
+		// empty for ListPortlet
 	}
 }

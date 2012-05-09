@@ -4,11 +4,14 @@ import java.util.List;
 
 import com.dblab.client.model.AqlHierarchy;
 import com.dblab.client.model.AqlLevel;
+import com.dblab.client.model.AqlMember;
 import com.dblab.client.storage.VirtualCube;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.custom.Portlet;
+import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
 import com.google.gwt.visualization.client.DataTable;
 import com.google.gwt.visualization.client.visualizations.corechart.CoreChart;
+import com.google.gwt.visualization.client.visualizations.corechart.CoreChart.Type;
 import com.google.gwt.visualization.client.visualizations.corechart.Options;
 
 public class ChartPortlet extends Portlet implements HasDisplay {
@@ -21,6 +24,7 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 	private AqlHierarchy fh;
 	private CoreChart chart;
 	private String title;
+	private CoreChart.Type type;
 	
 	public ChartPortlet(AqlUnit aqlUnit) {
 		super();
@@ -40,7 +44,26 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 
 	@Override
 	public void updateDisplay() {
-		String mdx = buildMdx();
+		//String mdx = buildMdx();
+		data = DataTable.create();
+		AqlLevel level = h.getAqlLevel(0);
+		AqlMember[] members = level.getAqlMemberArray();
+		data.addColumn(ColumnType.STRING, h.getAqlLevel(0).getName());
+		data.addColumn(ColumnType.NUMBER, measure);
+		data.addRows(members.length);
+		if (measure.equals("Amount")) {
+			for (int i = 0; i < members.length; ++i) {
+				data.setValue(i, 0, members[i].value);
+				data.setValue(i, 1, members[i].amount);
+			}
+		} else {
+			for (int i = 0; i < members.length; ++i) {
+				data.setValue(i, 0, members[i].value);
+				data.setValue(i, 1, members[i].count);
+			}
+		}
+		
+		initChartDisplay();
 	}
 
 	@Override
@@ -50,17 +73,17 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 
 	@Override
 	public void setDisplayAqlHierarchy(AqlHierarchy hierarchy) {
-		
+		h = hierarchy;
 	}
 
 	@Override
 	public void setDisplayAqlMeasure(String measure) {
-		
+		this.measure = measure;
 	}
 
 	@Override
 	public void setDisplayFilterAqlHierarchy(AqlHierarchy hierarchy) {
-		
+		fh = hierarchy;
 	}
 
 	@Override
@@ -68,7 +91,7 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 		this.title = title;
 	}
 	
-	public void initChartDisplay(CoreChart.Type type) {
+	public void initChartDisplay() {
 		Options options = CoreChart.createOptions();
 		options.setTitle(title);
 		chart = ChartFactory.createChart(type, chart, data, options);
@@ -76,7 +99,7 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 		layout(true);
 	}
 	
-	private String buildMdx() {
+/*	private String buildMdx() {
 		String select = "select\n";
 		String on0 = " on 0,\n";
 		String on1 = " on 1\n";
@@ -93,5 +116,10 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 					 where; 
 					 	
 		return mdx;
+	}*/
+
+	@Override
+	public void setDisplayChartType(Type type) {
+		this.type = type;
 	}
 }

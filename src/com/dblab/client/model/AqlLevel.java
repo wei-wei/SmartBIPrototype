@@ -19,11 +19,25 @@ public class AqlLevel {
 	//=====================================
 	
 	private List<HasDisplay> displays;
+	private List<Integer> selectedMember;
 	
 	public AqlLevel() {
 		//memberArray = new AqlMember[memberCount];
 		displays = new ArrayList<HasDisplay>();
+		selectedMember = new ArrayList<Integer>();
 		initMemberArray();
+	}
+	
+	public void clearSelected() {
+		selectedMember.clear();
+	}
+	
+	public void addSelected(int i) {
+		selectedMember.add(i);
+	}
+	
+	public List<Integer> getSelectedMember() {
+		return selectedMember;
 	}
 	
 	public void setMemberArray(AqlMember[] memberArray) {
@@ -76,9 +90,15 @@ public class AqlLevel {
 		displays.add(display);
 	}
 	
-	public void updateDisplay(List<Integer> list) {
+/*	public void updateDisplay(List<Integer> list) {
 		for (int i = 0; i < displays.size(); ++i) {
 			displays.get(i).updateDisplay(list);
+		}
+	}*/
+	
+	public void updateDisplay() {
+		for (int i = 0; i < displays.size(); ++i) {
+			displays.get(i).updateDisplay(selectedMember);
 		}
 	}
 }
