@@ -107,7 +107,7 @@ public class SharedCubeStorage {
 		cube.addAqlDimension(dim);
 		cube.addAqlHierarchy(hie);
 		
-		dim = new AqlDimension("Time");	// create a dimension
+/*		dim = new AqlDimension("Time");	// create a dimension
 		
 		hie = new AqlHierarchy(3);				// create a hierarchy with 3 level
 		hie.setAqlHierarchyId(idManager.getNewId());	// set hierarchy id
@@ -142,7 +142,7 @@ public class SharedCubeStorage {
 		
 		dim.addAqlHierarchy(hie);
 		cube.addAqlDimension(dim);
-		cube.addAqlHierarchy(hie);
+		cube.addAqlHierarchy(hie);*/
 		
 		AqlMeasure measure = new AqlMeasure();
 		measure.setName("Measures");

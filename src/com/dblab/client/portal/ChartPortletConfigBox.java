@@ -75,7 +75,7 @@ public class ChartPortletConfigBox extends PortletConfigBox {
 		mComboBox.setSize("200px", "20px");
 		initMComboBox(mComboBox, mList, selM);
 		
-		HorizontalPanel fhPanel = new HorizontalPanel();
+/*		HorizontalPanel fhPanel = new HorizontalPanel();
 		fhPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		fhPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.add(fhPanel);
@@ -88,7 +88,7 @@ public class ChartPortletConfigBox extends PortletConfigBox {
 		fhComboBox = new ListBox(false);
 		fhPanel.add(fhComboBox);
 		fhComboBox.setSize("200px", "20px");
-		initHComboBox(fhComboBox, fhList, selFH);
+		initHComboBox(fhComboBox, fhList, selFH);*/
 		
 		HorizontalPanel buttonPanel = new HorizontalPanel();
 		buttonPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);

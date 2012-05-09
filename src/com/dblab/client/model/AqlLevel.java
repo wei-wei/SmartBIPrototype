@@ -12,6 +12,12 @@ public class AqlLevel {
 	private int levelIndex;
 	private String mdxStr;
 	
+	//=====================================
+	
+	//private 
+	
+	//=====================================
+	
 	private List<HasDisplay> displays;
 	
 	public AqlLevel() {
