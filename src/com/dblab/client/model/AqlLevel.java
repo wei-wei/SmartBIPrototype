@@ -1,5 +1,6 @@
 package com.dblab.client.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dblab.client.portal.HasDisplay;
@@ -15,6 +16,7 @@ public class AqlLevel {
 	
 	public AqlLevel() {
 		//memberArray = new AqlMember[memberCount];
+		displays = new ArrayList<HasDisplay>();
 		initMemberArray();
 	}
 	

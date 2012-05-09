@@ -98,6 +98,7 @@ public class ListPortlet extends Portlet implements HasDisplay {
 	public void setDisplayAqlLevel(AqlLevel level) {
 		hId = level.getAqlHierarchyId();
 		lIndex = level.getLevelIndex();
+		updateDisplay();
 	}
 
 	@Override
