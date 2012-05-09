@@ -12,4 +12,5 @@ public interface HasDisplay {
 	void setDisplayAqlHierarchy(AqlHierarchy hierarchy);
 	void setDisplayAqlMeasure(String measure);
 	void setDisplayFilterAqlHierarchy(AqlHierarchy hierarchy);
+	void setDisplayTitle(String title);
 }

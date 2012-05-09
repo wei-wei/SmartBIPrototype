@@ -12,7 +12,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -20,20 +19,17 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ListPortletConfigBox extends DialogBox {
-	private HasDisplay display;
+public class ListPortletConfigBox extends PortletConfigBox {
+	/*private HasDisplay display;
 	private VirtualCube vCube;
-	private ListBox comboBox;
+	*/private ListBox comboBox;
 	private Button okButton;
 	private Button cancelButton;
 	private List<AqlLevel> list;
 	private AqlLevel sel;
 	
 	public ListPortletConfigBox(HasDisplay display, VirtualCube vCube) {
-		super();
-		
-		this.display = display;
-		this.vCube = vCube;
+		super(display, vCube);
 		
 		initDialogBox();
 	}
@@ -58,7 +54,7 @@ public class ListPortletConfigBox extends DialogBox {
 		label.setSize("50px", "20px");
 		levelPanel.add(label);
 		
-		comboBox = new ListBox();
+		comboBox = new ListBox(false);
 		levelPanel.add(comboBox);
 		comboBox.setSize("200px", "20px");
 		initComboBox();
@@ -110,6 +106,10 @@ public class ListPortletConfigBox extends DialogBox {
 				sel = list.get(i);
 			}
 		});
+		
+		if (list.size() > 0) {
+			sel = list.get(0);
+		}
 	}
 	
 	private void configureDisplay() {

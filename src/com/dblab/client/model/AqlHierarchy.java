@@ -49,4 +49,9 @@ public class AqlHierarchy {
 	public int getAqlHierarchyDepth() {
 		return levelArray.length;
 	}
+	
+	public String getMdxQueryAxixStr() {
+		String mdx = "";
+		return mdx;
+	}
 }

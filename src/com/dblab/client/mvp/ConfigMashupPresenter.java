@@ -28,6 +28,7 @@ public class ConfigMashupPresenter extends
 		Button getAddChartButton();
 		void initPortal(VirtualCube vCube, AqlUnit aqlUnit);
 		void addListPortlet();
+		void addChartPortlet();
 	}
 
 	@ProxyCodeSplit
@@ -59,6 +60,14 @@ public class ConfigMashupPresenter extends
 					@Override
 					public void componentSelected(ButtonEvent ce) {
 						getView().addListPortlet();
+					}
+				});
+		
+		getView().getAddChartButton().addSelectionListener(
+				new SelectionListener<ButtonEvent>() {
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						getView().addChartPortlet();
 					}
 				});
 	}

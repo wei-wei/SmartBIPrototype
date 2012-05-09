@@ -86,4 +86,9 @@ public class ConfigMashupView extends ViewImpl implements
 	public void addListPortlet() {
 		portal.addListPortlet();
 	}
+	
+	@Override
+	public void addChartPortlet() {
+		portal.addChartPortlet();
+	}
 }

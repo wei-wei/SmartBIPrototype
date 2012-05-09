@@ -10,7 +10,7 @@ public class ConfigSelectionListener<E extends ComponentEvent> extends Selection
 	private VirtualCube vCube;
 	private AqlUnit aqlUnit;
 	private HasDisplay display;
-	private DialogBox complex;
+	private PortletConfigBox complex;
 	
 	public ConfigSelectionListener(VirtualCube vCube, AqlUnit aqlUnit, HasDisplay display) {
 		super();
@@ -18,10 +18,11 @@ public class ConfigSelectionListener<E extends ComponentEvent> extends Selection
 		this.vCube = vCube;
 		this.aqlUnit = aqlUnit;
 		this.display = display;
-		
-		complex = new ListPortletConfigBox(display, vCube);
 	}
 
+	public void setPortletConfigBox(PortletConfigBox box) {
+		complex = box;
+	}
 	
 	@Override
 	public void componentSelected(E ce) {

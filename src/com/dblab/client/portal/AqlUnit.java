@@ -3,24 +3,26 @@ package com.dblab.client.portal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import com.dblab.client.model.AqlHierarchy;
 import com.dblab.client.model.AqlLevel;
-import com.dblab.client.model.AqlLevelSelectionHandler;
 import com.dblab.client.model.AqlMember;
 import com.google.gwt.visualization.client.events.SelectHandler;
 
 public class AqlUnit {
-	private List<AqlLevelSelectionHandler> handlerList;
+	private List<ListPortletSelectionHandler> handlerList;
+	private List<HasDisplay> chartDisplays;
 	
 	private final Map<Integer, AqlHierarchy> hierarchyMap;
 	
 	public AqlUnit(Map<Integer, AqlHierarchy> hierarchyMap) {
-		handlerList = new ArrayList<AqlLevelSelectionHandler>();
+		handlerList = new ArrayList<ListPortletSelectionHandler>();
 		this.hierarchyMap = hierarchyMap;
+		chartDisplays = new ArrayList<HasDisplay>();
 	}
 	
 	public SelectHandler bindSelectionHandler(final ListPortlet listPortlet) {
-		AqlLevelSelectionHandler handler = new AqlLevelSelectionHandler(listPortlet, this);
+		ListPortletSelectionHandler handler = new ListPortletSelectionHandler(listPortlet, this);
 		handlerList.add(handler);
 		return handler;
 	}
@@ -38,6 +40,7 @@ public class AqlUnit {
 		updateQuerySet(hierarchyId, levelIndex, list);
 		updateParentLevel(hierarchyId, levelIndex, list);
 		updateChildLevel(hierarchyId, levelIndex, list);
+		updateChartDisplay();
 	}
 	
 	private void updateQuerySet(int hierarchyId, int levelIndex, List<Integer> list) {
@@ -76,6 +79,16 @@ public class AqlUnit {
 			AqlLevel currentLevel = hierarchyMap.get(hierarchyId).getAqlLevel(currentIndex);
 			currentLevel.updateDisplay(list);
 			updateChildLevel(hierarchyId, currentIndex, list);
+		}
+	}
+	
+	public void addChartDisplay(HasDisplay display) {
+		chartDisplays.add(display);
+	}
+	
+	private void updateChartDisplay() {
+		for (HasDisplay display : chartDisplays) {
+			display.updateDisplay();
 		}
 	}
 }

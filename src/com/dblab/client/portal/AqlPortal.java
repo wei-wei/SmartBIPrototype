@@ -44,7 +44,7 @@ public class AqlPortal extends Portal {
 	
 	public void addListPortlet() {
 		ListPortlet portlet = new ListPortlet(aqlUnit);
-		configurePortlet(portlet);
+		configureListPortlet(portlet);
 		add(portlet, portletCount);
 		++portletCount;
 		if (portletCount > columnCount - 1) {
@@ -52,11 +52,46 @@ public class AqlPortal extends Portal {
 		}
 	}
 	
-	private void configurePortlet(final ListPortlet portlet) {
+	public void addChartPortlet() {
+		ChartPortlet portlet = new ChartPortlet(aqlUnit);
+		configureChartPortlet(portlet);
+		add(portlet, portletCount);
+		++portletCount;
+		if (portletCount > columnCount - 1) {
+			portletCount = 0;
+		}
+	}
+	
+	private void configureListPortlet(final ListPortlet portlet) {
 		portlet.setCollapsible(true);
 		portlet.setAnimCollapse(false);
+		
+		ListPortletConfigBox box = new ListPortletConfigBox(portlet, vCube);
+		ConfigSelectionListener<IconButtonEvent> listener =
+				new ConfigSelectionListener<IconButtonEvent>(vCube, aqlUnit, portlet);
+		listener.setPortletConfigBox(box);
 		portlet.getHeader().addTool(new ToolButton("x-tool-gear",
-				new ConfigSelectionListener<IconButtonEvent>(vCube, aqlUnit, portlet)));
+				listener));
+		
+		portlet.getHeader().addTool(new ToolButton("x-tool-close",
+				new SelectionListener<IconButtonEvent>() {
+					@Override
+					public void componentSelected(IconButtonEvent ce) {
+						portlet.removeFromParent();
+					}
+		}));
+	}
+	
+	private void configureChartPortlet(final ChartPortlet portlet) {
+		portlet.setCollapsible(true);
+		portlet.setAnimCollapse(false);
+		
+		ChartPortletConfigBox box = new ChartPortletConfigBox(portlet, vCube);
+		ConfigSelectionListener<IconButtonEvent> listener =
+				new ConfigSelectionListener<IconButtonEvent>(vCube, aqlUnit, portlet);
+		listener.setPortletConfigBox(box);
+		portlet.getHeader().addTool(new ToolButton("x-tool-gear",
+				listener));
 		portlet.getHeader().addTool(new ToolButton("x-tool-close",
 				new SelectionListener<IconButtonEvent>() {
 					@Override

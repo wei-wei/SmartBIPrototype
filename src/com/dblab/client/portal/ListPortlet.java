@@ -115,4 +115,10 @@ public class ListPortlet extends Portlet implements HasDisplay {
 	public void setDisplayFilterAqlHierarchy(AqlHierarchy hierarchy) {
 		// empty for ListPortlet;
 	}
+
+	@Override
+	public void setDisplayTitle(String title) {
+		// TODO Auto-generated method stub
+		
+	}
 }
