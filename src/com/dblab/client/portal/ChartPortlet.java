@@ -46,20 +46,21 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 	public void updateDisplay() {
 		//String mdx = buildMdx();
 		data = DataTable.create();
-		AqlLevel level = h.getAqlLevel(0);
+		AqlLevel level = h.getSelectedLevel();
+		List<Integer> list = level.getSelectedMember();
 		AqlMember[] members = level.getAqlMemberArray();
-		data.addColumn(ColumnType.STRING, h.getAqlLevel(0).getName());
+		data.addColumn(ColumnType.STRING, level.getName());
 		data.addColumn(ColumnType.NUMBER, measure);
-		data.addRows(members.length);
+		data.addRows(list.size());
 		if (measure.equals("Amount")) {
-			for (int i = 0; i < members.length; ++i) {
-				data.setValue(i, 0, members[i].value);
-				data.setValue(i, 1, members[i].amount);
+			for (int i = 0; i < list.size(); ++i) {
+				data.setValue(i, 0, members[list.get(i)].value);
+				data.setValue(i, 1, members[list.get(i)].amount);
 			}
 		} else {
 			for (int i = 0; i < members.length; ++i) {
-				data.setValue(i, 0, members[i].value);
-				data.setValue(i, 1, members[i].count);
+				data.setValue(i, 0, members[list.get(i)].value);
+				data.setValue(i, 1, members[list.get(i)].count);
 			}
 		}
 		
@@ -95,6 +96,7 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 		Options options = CoreChart.createOptions();
 		options.setTitle(title);
 		chart = ChartFactory.createChart(type, chart, data, options);
+		panel.removeAll();
 		panel.add(chart);
 		layout(true);
 	}

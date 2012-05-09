@@ -7,6 +7,7 @@ import java.util.Map;
 import com.dblab.client.model.AqlHierarchy;
 import com.dblab.client.model.AqlLevel;
 import com.dblab.client.model.AqlMember;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.visualization.client.events.SelectHandler;
 
 public class AqlUnit {
@@ -38,6 +39,11 @@ public class AqlUnit {
 	public void updateDisplay(int hierarchyId, int levelIndex, List<Integer> list) {
 		// not the highest level
 		updateQuerySet(hierarchyId, levelIndex, list);
+		//Window.alert("Selected " + hierarchyMap.get(hierarchyId).getAqlLevel(levelIndex).getName());
+		hierarchyMap.get(hierarchyId).setSelectedLevelIndex(levelIndex);
+		AqlLevel level = hierarchyMap.get(hierarchyId).getSelectedLevel();
+		level.clearSelected();
+		level.addSelected(list);
 		updateParentLevel(hierarchyId, levelIndex, list);
 		updateChildLevel(hierarchyId, levelIndex, list);
 		updateChartDisplay();
@@ -98,8 +104,8 @@ public class AqlUnit {
 	}
 	
 	private void updateChartDisplay() {
-		for (HasDisplay display : chartDisplays) {
-			display.updateDisplay();
+		for (int i = 0; i < chartDisplays.size(); ++i) {
+			chartDisplays.get(i).updateDisplay();
 		}
 	}
 }

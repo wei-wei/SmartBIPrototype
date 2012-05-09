@@ -1,15 +1,39 @@
 package com.dblab.client.model;
 
+
+
 public class AqlHierarchy {
 	private int hierarchyId;
 	private String name;
 	private String mdxStr;
 	private AqlLevel[] levelArray;
 	
+	//private List<ChartPortlet> displays;
+	private int selectedLevelIndex;
+	
 	public AqlHierarchy(int levelCount) {
 		levelArray = new AqlLevel[levelCount];
+		//displays = new ArrayList<ChartPortlet>();
+		selectedLevelIndex = 0;
 	}
 
+	public void setSelectedLevelIndex(int index) {
+		selectedLevelIndex = index;
+	}
+	
+	public AqlLevel getSelectedLevel() {
+		return levelArray[selectedLevelIndex];
+	}
+	/*public void addDisplay(ChartPortlet portlet) {
+		displays.add(portlet);
+	}*/
+	
+	/*public void updateDisplay() {
+		for (int i = 0; i < displays.size(); ++i) {
+			displays.get(i).updateDisplay();
+		}
+	}*/
+	
 	public int getAqlHierarchyId() {
 		return hierarchyId;
 	}

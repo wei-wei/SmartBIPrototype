@@ -60,6 +60,7 @@ public class AqlPortal extends Portal {
 		if (portletCount > columnCount - 1) {
 			portletCount = 0;
 		}
+		aqlUnit.addChartDisplay(portlet);
 	}
 	
 	private void configureListPortlet(final ListPortlet portlet) {

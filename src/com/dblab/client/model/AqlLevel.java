@@ -36,12 +36,19 @@ public class AqlLevel {
 		selectedMember.add(i);
 	}
 	
+	public void addSelected(List<Integer> list) {
+		selectedMember.addAll(list);
+	}
+	
 	public List<Integer> getSelectedMember() {
 		return selectedMember;
 	}
 	
 	public void setMemberArray(AqlMember[] memberArray) {
 		this.memberArray = memberArray;
+		for (int i = 0; i < memberArray.length; ++i) {
+			selectedMember.add(i);
+		}
 	}
 	
 	public AqlMember[] getAqlMemberArray() {
