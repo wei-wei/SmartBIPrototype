@@ -11,7 +11,5 @@ public class PortletConfigBox extends DialogBox {
 		super();
 		this.display = display;
 		this.vCube = vCube;
-	}
-	
-	
+	}	
 }

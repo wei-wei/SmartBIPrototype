@@ -5,11 +5,12 @@ import java.util.List;
 import com.dblab.client.model.AqlHierarchy;
 import com.dblab.client.model.AqlLevel;
 import com.dblab.client.model.AqlMember;
-import com.dblab.client.storage.VirtualCube;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.custom.Portlet;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
 import com.google.gwt.visualization.client.DataTable;
+import com.google.gwt.visualization.client.Selection;
 import com.google.gwt.visualization.client.visualizations.corechart.CoreChart;
 import com.google.gwt.visualization.client.visualizations.corechart.CoreChart.Type;
 import com.google.gwt.visualization.client.visualizations.corechart.Options;
@@ -18,10 +19,10 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 	private ContentPanel panel;
 	private DataTable data;
 	private AqlUnit aqlUnit;
-	private VirtualCube vCube;
+	//private VirtualCube vCube;
 	private AqlHierarchy h;
 	private String measure;
-	private AqlHierarchy fh;
+	//private AqlHierarchy fh;
 	private CoreChart chart;
 	private String title;
 	private CoreChart.Type type;
@@ -34,7 +35,7 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 		add(panel);
 		h = null;
 		measure = null;
-		fh = null;
+//		fh = null;
 	}
 	
 	@Override
@@ -84,7 +85,7 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 
 	@Override
 	public void setDisplayFilterAqlHierarchy(AqlHierarchy hierarchy) {
-		fh = hierarchy;
+//		fh = hierarchy;
 	}
 
 	@Override
@@ -98,6 +99,7 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 		chart = ChartFactory.createChart(type, chart, data, options);
 		panel.removeAll();
 		panel.add(chart);
+		chart.addSelectHandler(aqlUnit.bindChartSelectionHandler(this));
 		layout(true);
 	}
 	
@@ -123,5 +125,13 @@ public class ChartPortlet extends Portlet implements HasDisplay {
 	@Override
 	public void setDisplayChartType(Type type) {
 		this.type = type;
+	}
+	
+	public JsArray<Selection> getSelections() {
+		return chart.getSelections();
+	}
+	
+	public AqlHierarchy getAqlHierarchy() {
+		return h;
 	}
 }

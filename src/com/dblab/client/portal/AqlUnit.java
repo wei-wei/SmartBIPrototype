@@ -7,17 +7,18 @@ import java.util.Map;
 import com.dblab.client.model.AqlHierarchy;
 import com.dblab.client.model.AqlLevel;
 import com.dblab.client.model.AqlMember;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.visualization.client.events.SelectHandler;
 
 public class AqlUnit {
 	private List<ListPortletSelectionHandler> handlerList;
+	private List<ChartPortletSelectionHandler> chartHandlerList;
 	private List<HasDisplay> chartDisplays;
 	
 	private final Map<Integer, AqlHierarchy> hierarchyMap;
 	
 	public AqlUnit(Map<Integer, AqlHierarchy> hierarchyMap) {
 		handlerList = new ArrayList<ListPortletSelectionHandler>();
+		chartHandlerList = new ArrayList<ChartPortletSelectionHandler>();
 		this.hierarchyMap = hierarchyMap;
 		chartDisplays = new ArrayList<HasDisplay>();
 	}
@@ -25,6 +26,12 @@ public class AqlUnit {
 	public SelectHandler bindSelectionHandler(final ListPortlet listPortlet) {
 		ListPortletSelectionHandler handler = new ListPortletSelectionHandler(listPortlet, this);
 		handlerList.add(handler);
+		return handler;
+	}
+	
+	public SelectHandler bindChartSelectionHandler(final ChartPortlet chartPortlet) {
+		ChartPortletSelectionHandler handler = new ChartPortletSelectionHandler(chartPortlet, this);
+		chartHandlerList.add(handler);
 		return handler;
 	}
 	
@@ -39,7 +46,6 @@ public class AqlUnit {
 	public void updateDisplay(int hierarchyId, int levelIndex, List<Integer> list) {
 		// not the highest level
 		updateQuerySet(hierarchyId, levelIndex, list);
-		//Window.alert("Selected " + hierarchyMap.get(hierarchyId).getAqlLevel(levelIndex).getName());
 		hierarchyMap.get(hierarchyId).setSelectedLevelIndex(levelIndex);
 		AqlLevel level = hierarchyMap.get(hierarchyId).getSelectedLevel();
 		level.clearSelected();

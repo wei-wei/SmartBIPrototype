@@ -22,15 +22,15 @@ public class ChartPortletConfigBox extends PortletConfigBox {
 	private ListBox tComboBox;
 	private ListBox hComboBox;
 	private ListBox mComboBox;
-	private ListBox fhComboBox;
+//	private ListBox fhComboBox;
 	private Button okButton;
 	private Button cancelButton;
 	private List<AqlHierarchy> hList;
 	private AqlHierarchy selH;
 	private List<String> mList;
 	private String selM;
-	private List<AqlHierarchy> fhList;
-	private AqlHierarchy selFH;
+//	private List<AqlHierarchy> fhList;
+//	private AqlHierarchy selFH;
 	private CoreChart.Type type;
 	
 	private static final CoreChart.Type[] types = {CoreChart.Type.AREA, CoreChart.Type.BARS, CoreChart.Type.COLUMNS, CoreChart.Type.PIE};

@@ -43,7 +43,7 @@ public class ConfigMashupPresenter extends
 		super(eventBus, view, proxy);
 		this.metadataManager = metadataManager;
 		vCube = metadataManager.getVirtualCube();
-		aqlUnit = new AqlUnit(metadataManager.getVirtualCube().getAqlCube().getAqlHierarchyMap());
+		aqlUnit = new AqlUnit(this.metadataManager.getVirtualCube().getAqlCube().getAqlHierarchyMap());
 	}
 
 	@Override
